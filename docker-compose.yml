@@ -1,0 +1,15 @@
+version: '3.8'
+
+services:
+  ctms-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: aiia-ctms-service
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DATABASE_URL=sqlite:///./aiia_ctms.db
+      - JWT_SECRET=aiia_production_secret_change_in_real_deployment_2026
+    restart: unless-stopped

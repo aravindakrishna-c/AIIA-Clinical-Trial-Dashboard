@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: aiia-clinical-trials-ctms
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: "cd frontend && npm install && npm run build && cd ../backend && pip install -r requirements.txt && python -m app.database.init_db"
+    startCommand: "cd backend && uvicorn app.main:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: NODE_VERSION
+        value: 20.11.0
+      - key: ENVIRONMENT
+        value: production
+      - key: DATABASE_URL
+        value: sqlite:///./aiia_ctms.db
+      - key: JWT_SECRET
+        generateValue: true
